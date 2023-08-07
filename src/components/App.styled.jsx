@@ -31,3 +31,4 @@ export const ModalDescr = styled.p`
 
   font-size: ${props => props.theme.fontSizes.l};
 `;
+

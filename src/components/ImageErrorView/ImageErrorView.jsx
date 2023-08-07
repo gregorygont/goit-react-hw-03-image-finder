@@ -14,3 +14,4 @@ export default function ImageErrorView({ message }) {
 ImageErrorView.propTypes = {
   message: PropTypes.string,
 };
+

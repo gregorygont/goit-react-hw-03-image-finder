@@ -84,3 +84,4 @@ export const SearchFormInput = styled.input`
     font-size: 18px;
   }
 `;
+

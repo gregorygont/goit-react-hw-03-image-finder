@@ -12,3 +12,4 @@ export const Container = styled.main`
   padding-top: ${props => props.theme.space[3]}px;
   padding-bottom: ${props => props.theme.space[3]}px;
 `;
+

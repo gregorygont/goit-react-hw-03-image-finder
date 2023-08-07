@@ -25,3 +25,4 @@ export const Picture = styled.img`
   height: 380px;
   object-fit: cover;
 `;
+

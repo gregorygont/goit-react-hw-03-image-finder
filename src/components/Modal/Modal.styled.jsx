@@ -68,3 +68,4 @@ export const ModalPicture = styled.img`
   object-fit: cover;
   object-position: center;
 `;
+

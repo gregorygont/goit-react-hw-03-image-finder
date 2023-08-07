@@ -32,3 +32,4 @@ export const Hero = styled.img`
   object-position: center;
   margin: 0 auto;
 `;
+

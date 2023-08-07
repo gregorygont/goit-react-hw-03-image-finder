@@ -15,3 +15,4 @@ export const InitialStateGallery = ({ text }) => {
 InitialStateGallery.propTypes = {
   text: PropTypes.string.isRequired,
 };
+

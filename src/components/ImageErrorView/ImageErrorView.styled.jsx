@@ -27,3 +27,5 @@ export const ErrorImg = styled.img`
   object-position: center;
   margin-bottom: 24px;
 `;
+
+

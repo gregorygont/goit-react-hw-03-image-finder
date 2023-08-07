@@ -10,3 +10,4 @@ export const notifyOptions = {
   theme: 'colored',
   toastId: customId,
 };
+

@@ -25,3 +25,4 @@ export const PendingDog = styled.img`
   object-fit: contain;
   object-position: center;
 `;
+

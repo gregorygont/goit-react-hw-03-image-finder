@@ -40,7 +40,7 @@ export class Searchbar extends Component {
           </SearchFormBtn>
           <SearchFormInput
             type="text"
-            autoComplete="off"
+            autocomplete="off"
             autoFocus
             placeholder="Search images and photos"
             value={value}
@@ -55,3 +55,4 @@ export class Searchbar extends Component {
 Searchbar.propType = {
   onSubmit: PropTypes.func.isRequired,
 };
+

@@ -26,3 +26,4 @@ ImageGalleryItem.propTypes = {
   }).isRequired,
   onImageClick: PropTypes.func.isRequired,
 };
+
