@@ -24,14 +24,15 @@ export default class ImageGallery extends Component {
 
   state = {
     value: '',
-    loadedImages: [],
-    newImages: [],
+    images: [],
     error: null,
     status: Status.IDLE,
+
     page: 1,
     totalPages: 0,
+
     isShowModal: false,
-    modalData: {},
+    modalData: { img: DefaultImg, tags: '' },
   };
 
   // перевіряємо, щоб в пропсах змінився запит
@@ -47,35 +48,31 @@ export default class ImageGallery extends Component {
     const { page } = this.state;
     const prevValue = prevProps.value;
     const nextValue = this.props.value;
-
+    //   страхуємо від повторного запиту, якщо вже таке слово було введене
     if (prevValue !== nextValue || prevState.page !== page) {
       this.setState({ status: Status.PENDING });
 
+      // перевіряємо чи є помилка, якщо є - записуємо null
       if (this.state.error) {
         this.setState({ error: null });
       }
-
       imagesAPI
         .getImages(nextValue, page)
         .then(images => {
           this.setState(prevState => ({
-            loadedImages: page === 1 ? images.hits : prevState.loadedImages,
-            newImages: page === 1 ? [] : images.hits,
+            images:
+              page === 1 ? images.hits : [...prevState.images, ...images.hits],
             status: Status.RESOLVED,
             totalPages: Math.floor(images.totalHits / 12),
           }));
         })
         .catch(error => this.setState({ error, status: Status.REJECTED }));
     }
-  };
+  }
 
   // custom method to btn load
   handleLoadMore = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-      loadedImages: [...prevState.loadedImages, ...prevState.newImages],
-      newImages: [],
-    }));
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   setModalData = modalData => {
@@ -87,7 +84,8 @@ export default class ImageGallery extends Component {
   };
 
   render() {
-    const { loadedImages, newImages, status, page, totalPages, error, isShowModal, modalData } = this.state;
+    const { images, error, status, page, totalPages, isShowModal, modalData } =
+      this.state;
 
     if (status === 'idle') {
       return <InitialStateGallery text="Let`s find images together!" />;
@@ -98,7 +96,7 @@ export default class ImageGallery extends Component {
     if (status === 'rejected') {
       return <ImageErrorView message={error.message} />;
     }
-    if (loadedImages.length === 0) {
+    if (images.length === 0) {
       return (
         <ImageErrorView
           message={`Oops... there are no images matching your search... `}
@@ -110,7 +108,7 @@ export default class ImageGallery extends Component {
       return (
         <>
           <List>
-            {loadedImages.map(image => (
+            {images.map(image => (
               <ImageGalleryItem
                 key={image.id}
                 item={image}
@@ -118,7 +116,7 @@ export default class ImageGallery extends Component {
               />
             ))}
           </List>
-          {newImages.length > 0 && page <= totalPages && (
+          {images.length > 0 && status !== 'pending' && page <= totalPages && (
             <Button onClick={this.handleLoadMore}>Load More</Button>
           )}
           {isShowModal && (
@@ -129,3 +127,4 @@ export default class ImageGallery extends Component {
     }
   }
 }
+
