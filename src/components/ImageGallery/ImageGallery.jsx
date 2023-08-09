@@ -91,7 +91,7 @@ export default class ImageGallery extends Component {
       return <InitialStateGallery text="Let`s find images together!" />;
     }
     if (status === 'pending') {
-      return <Loader />;
+      <Loader />;
     }
     if (status === 'rejected') {
       return <ImageErrorView message={error.message} />;
@@ -104,7 +104,7 @@ export default class ImageGallery extends Component {
       );
     }
 
-    if (status === 'resolved') {
+    if (images.length > 0) {
       return (
         <>
           <List>
