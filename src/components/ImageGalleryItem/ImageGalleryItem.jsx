@@ -1,29 +1,23 @@
-import { ListItem, Picture } from './ImageGalleryItem.styled';
 import PropTypes from 'prop-types';
+import { ImageGalleryCard, GalleryCardImg } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ item, onImageClick }) => {
-  const { largeImageURL, tags, webformatURL } = item;
-
-  return (
-    <ListItem
-      onClick={e => {
-        e.preventDefault();
-        onImageClick({ largeImageURL, tags });
-      }}
-    >
-      <div>
-        <Picture src={webformatURL} alt={tags} loading="lazy" />
-      </div>
-    </ListItem>
-  );
+export const ImageGalleryItem = ({ pictures, onClickImg }) => {
+  return pictures.map((picture, index) => {
+    return (
+      <ImageGalleryCard key={index}>
+        <GalleryCardImg
+          onClick={() => {
+            onClickImg(picture.largeImageURL);
+          }}
+          src={picture.webformatURL}
+          alt={picture.tags}
+        />
+      </ImageGalleryCard>
+    );
+  });
 };
 
 ImageGalleryItem.propTypes = {
-  item: PropTypes.shape({
-    tags: PropTypes.string.isRequired,
-    webformatURL: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-  }).isRequired,
-  onImageClick: PropTypes.func.isRequired,
+  pictures: PropTypes.array.isRequired,
+  onClickImg: PropTypes.func.isRequired,
 };
-
